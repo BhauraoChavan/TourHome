@@ -9,8 +9,9 @@ const Login = () => {
     password: ''
   });
   const [error, setError] = useState(null);
+  const [notice, setNotice] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, resendVerificationEmail } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,6 +25,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setNotice(null);
 
     const result = await login(formData.email, formData.password);
     
@@ -34,6 +36,21 @@ const Login = () => {
     }
     
     setLoading(false);
+  };
+
+  const handleResendVerification = async () => {
+    if (!formData.email) {
+      setError('Enter your email address first');
+      return;
+    }
+
+    setError(null);
+    const result = await resendVerificationEmail(formData.email);
+    if (result.success) {
+      setNotice(result.message);
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
@@ -53,6 +70,11 @@ const Login = () => {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <ErrorMessage message={error} />
+          {notice && (
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+              {notice}
+            </div>
+          )}
           
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -100,6 +122,15 @@ const Login = () => {
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
+          {error === 'Please verify your email before logging in' && (
+            <button
+              type="button"
+              onClick={handleResendVerification}
+              className="w-full text-sm font-medium text-primary-600 hover:text-primary-500"
+            >
+              Resend verification email
+            </button>
+          )}
         </form>
       </div>
     </div>

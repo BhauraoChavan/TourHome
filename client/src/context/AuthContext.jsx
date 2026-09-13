@@ -41,6 +41,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const resendVerificationEmail = async (email) => {
+    try {
+      const response = await api.post('/auth/resend-verification', { email });
+      return { success: true, message: response.data.message };
+    } catch (err) {
+      return {
+        success: false,
+        error: err.response?.data?.message || 'Failed to resend verification email'
+      };
+    }
+  };
+
   const register = async (userData) => {
     try {
       setError(null);
@@ -74,6 +86,7 @@ export const AuthProvider = ({ children }) => {
     loading,
     error,
     login,
+    resendVerificationEmail,
     register,
     logout,
     updateUser,

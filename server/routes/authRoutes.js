@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   register,
+  resendVerificationEmail,
   login,
   logout,
   verifyEmail,
@@ -14,6 +15,7 @@ import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.post('/register', register);
+router.post('/resend-verification', resendVerificationEmail);
 router.post('/login', login);
 router.post('/logout', protect, logout);
 router.get('/verify-email/:token', verifyEmail);

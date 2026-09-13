@@ -76,6 +76,55 @@ export const register = async (req, res) => {
   }
 };
 
+export const resendVerificationEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !isValidEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid email'
+      });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user || user.isEmailVerified) {
+      return res.status(200).json({
+        success: true,
+        message: 'If the account needs verification, a new email has been sent'
+      });
+    }
+
+    const verificationToken = generateRandomToken();
+    user.verificationTokenHash = hashToken(verificationToken);
+    user.verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    await user.save();
+
+    try {
+      await emailService.sendVerificationEmail(user.email, user.name, verificationToken);
+    } catch (error) {
+      console.error('Failed to resend verification email:', error);
+      user.verificationTokenHash = undefined;
+      user.verificationTokenExpiry = undefined;
+      await user.save();
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to send verification email. Please try again.'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'A new verification email has been sent'
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Server error while resending verification email'
+    });
+  }
+};
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
