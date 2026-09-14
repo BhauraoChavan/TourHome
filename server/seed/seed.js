@@ -95,6 +95,24 @@ const seedData = async () => {
       console.log('Using existing demo user');
     }
 
+    if (process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
+      const adminUser = await User.findOne({ email: process.env.ADMIN_EMAIL });
+      if (!adminUser) {
+        await User.create({
+          name: 'TourHome Admin',
+          email: process.env.ADMIN_EMAIL,
+          password: process.env.ADMIN_PASSWORD,
+          role: 'admin',
+          isEmailVerified: true
+        });
+        console.log(`Created admin user: ${process.env.ADMIN_EMAIL}`);
+      } else if (adminUser.role !== 'admin') {
+        adminUser.role = 'admin';
+        await adminUser.save();
+        console.log(`Promoted user to admin: ${process.env.ADMIN_EMAIL}`);
+      }
+    }
+
     const listingsWithOwner = sampleListings.map(listing => ({
       ...listing,
       owner: demoUser._id

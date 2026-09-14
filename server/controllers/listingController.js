@@ -168,7 +168,7 @@ export const updateListing = async (req, res) => {
       });
     }
 
-    if (listing.owner.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && listing.owner.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized to update this listing'
@@ -229,7 +229,7 @@ export const deleteListing = async (req, res) => {
       });
     }
 
-    if (listing.owner.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && listing.owner.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized to delete this listing'

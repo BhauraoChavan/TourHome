@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch, initialValue = '' }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by location, country, or keyword..."
-        className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="flex-1 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
       />
       <button
         type="submit"

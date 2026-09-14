@@ -30,7 +30,8 @@ const Login = () => {
     const result = await login(formData.email, formData.password);
     
     if (result.success) {
-      navigate('/');
+      const loggedInUser = JSON.parse(localStorage.getItem('user') || 'null');
+      navigate(loggedInUser?.role === 'admin' ? '/admin' : '/');
     } else {
       setError(result.error);
     }

@@ -44,7 +44,7 @@ const FilterPanel = ({ onFilter, initialFilters = {} }) => {
             name="location"
             value={filters.location}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full bg-white px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="e.g. Pune"
           />
         </div>
@@ -58,7 +58,7 @@ const FilterPanel = ({ onFilter, initialFilters = {} }) => {
             name="country"
             value={filters.country}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full bg-white px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="e.g. India"
           />
         </div>
@@ -73,7 +73,7 @@ const FilterPanel = ({ onFilter, initialFilters = {} }) => {
               name="minPrice"
               value={filters.minPrice}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-white px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="0"
             />
           </div>
@@ -86,7 +86,7 @@ const FilterPanel = ({ onFilter, initialFilters = {} }) => {
               name="maxPrice"
               value={filters.maxPrice}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-white px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="10000"
             />
           </div>

@@ -150,7 +150,7 @@ export const getBooking = async (req, res) => {
       });
     }
 
-    if (booking.user._id.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && booking.user._id.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized to view this booking'
@@ -189,7 +189,7 @@ export const cancelBooking = async (req, res) => {
       });
     }
 
-    if (booking.user.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && booking.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized to cancel this booking'

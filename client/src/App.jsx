@@ -1,4 +1,3 @@
-import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -17,6 +16,13 @@ import MyBookings from './pages/MyBookings';
 import BookingDetails from './pages/BookingDetails';
 import ProtectedRoute from './components/ProtectedRoute';
 
+import { Routes, Route } from 'react-router-dom';
+import HelpCenter from './pages/HelpCenter';
+import ContactUs from './pages/ContactUs';
+import TermsOfService from './pages/TermsOfService';
+import AdminDashboard from './pages/AdminDashboard';
+
+
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -31,6 +37,10 @@ function App() {
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+             <Route path="/help" element={<HelpCenter />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/terms" element={<TermsOfService />} />
           
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<Profile />} />
@@ -39,6 +49,10 @@ function App() {
             <Route path="/my-listings" element={<MyListings />} />
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/bookings/:id" element={<BookingDetails />} />
+
+          </Route>
+          <Route element={<ProtectedRoute requiredRole="admin" />}>
+            <Route path="/admin" element={<AdminDashboard />} />
           </Route>
         </Routes>
       </main>

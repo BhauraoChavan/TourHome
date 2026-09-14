@@ -26,6 +26,11 @@ const Navbar = () => {
             </Link>
             {isAuthenticated ? (
               <>
+                {user?.role === 'admin' && (
+                  <Link to="/admin" className="font-semibold text-red-600 hover:text-red-700">
+                    Admin Panel
+                  </Link>
+                )}
                 <Link to="/listings/new" className="flex items-center space-x-1 text-gray-700 hover:text-primary-600">
                   <FaPlus /> <span>Add Listing</span>
                 </Link>
