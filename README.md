@@ -426,6 +426,17 @@ The application will follow basic security practices such as:
 
 This project is being developed step-by-step to understand real-world full-stack development.
 
+### Local frontend with deployed backend
+
+The backend is available at `https://tourhome.onrender.com`. To run the frontend locally against it, copy `client/.env.example` to `client/.env` and start the client:
+
+```bash
+cd client
+npm run dev
+```
+
+The backend must have `CLIENT_URL=http://localhost:5173` configured for local browser requests.
+
 The development process includes:
 
 ```text
